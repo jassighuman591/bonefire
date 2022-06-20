@@ -1,0 +1,66 @@
+<% layout('layout/boilerplate') -%>
+<div class="row">
+    <div class="col-6">
+        <div class="card mb-3">
+            <img src="<%= campground.image%>" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title"><%= campground.title%></h5>
+                <p class="card-text"><%= campground.description%></p>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item text-muted"><%= campground.location%></li>
+                <li class="list-group-item">$<%= campground.price%>/night</li>
+                <li class="list-group-item">Posted By : <%= campground.author.username %> </li>
+            </ul> 
+            <% if(user && user._id.equals(campground.author._id)){ %> 
+            <div class="card-body">
+                <a class="card-link btn btn-info" href="/campgrounds/<%=campground._id%>/edit">Edit</a>
+                <form class="d-inline" action="/campgrounds/<%=campground._id%>?_method=DELETE" method="POST">
+                    <button class="btn btn-danger">Delete</button>
+                </form>
+            </div> 
+           <% } %> 
+        </div>
+    </div>
+    <% if(user){ %> 
+    <div class="col-6">
+        <form action="/campgrounds/<%=campground._id%>/review" method="post" class="needs-validation" novalidate>
+            <h2>Leave a Review </h2>
+            <div class="mb-3">
+                <label class="form-label" for="Rating">Rating </label>
+                <input class="form-range" type="range" id="Rating" name="Rating" min="1" max="5" required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>           
+            <div class="mb-3">
+                <label class="form-label" for="Review">Review</label>
+                <textarea class="form-control" type="text" id="Review" name="Review"
+                    required></textarea>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+            </div>
+            <div class="mb-3">
+                <button class="btn btn-success">Submit</button>
+            </div>
+        </form>
+
+        <!-- displaying all reviews  -->
+        <% for(let review of campground.reviews){ %> 
+        <div class="card mb-3">
+            <div class="card-body">
+                <h6 class="card-subtitle mb-2"> By <%= review.author.username %></h6>
+                <h6 class="card-title text-muted">Rating : <%= review.Rating %></h6>
+                <p class="card-text">Review : <%= review.Review %></p>
+            </div>
+              <% if(user._id.equals(review.author._id)){ %>  
+            <form class="d-inline" action="/campgrounds/<%=campground._id%>/review/<%=review._id%>?_method=DELETE" method="POST">
+                <button class="btn  btn-danger mb-2 ml-2" type="submit">Delete</button>
+            </form>
+              <% } %> 
+        </div>
+        <% } %> 
+    </div>
+    <% } %> 
+</div>
