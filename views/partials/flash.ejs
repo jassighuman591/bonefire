@@ -1,0 +1,26 @@
+
+<% if(success && success.length){ %> 
+<div id="successFlashMsg" class="alert alert-info" role="alert">
+    <%= success  %> 
+</div>
+<% } %> 
+
+<% if(error && error.length){ %> 
+<div id="errorFlashMsg" class="alert alert-warning" role="alert">
+    <%= error %> 
+</div>
+<% } %> 
+
+<script>
+    const successMsgBox = document.getElementById('successFlashMsg');
+    const errorMsgBox = document.getElementById('errorFlashMsg');
+
+    setTimeout( function(){
+        successMsgBox.remove();
+    },1000)
+
+    setTimeout( function(){
+        errorMsgBox.remove();
+    },4000)
+
+</script>
