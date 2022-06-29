@@ -85,6 +85,6 @@ app.use( (err, req, res, next) => {
     res.render('campgrounds/error', {message});
 })
 
-app.listen(3000, () => {
+app.listen(2500, () => {
     console.log("listening to port 2500");
-})+
+})
