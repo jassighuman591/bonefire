@@ -2,6 +2,8 @@ if(process.env.NODE_ENV !== "production"){
     require('dotenv').config();
 }
 
+
+
 const express = require('express')
 const app = express()
 const mongoose = require('mongoose')
@@ -11,6 +13,7 @@ const methodOverride = require('method-override');
 const engine = require('ejs-mate');
 const path = require('path')
 const User = require('./models/user');
+const DB_URL = process.env.DB_URL || 'mongodb://localhost:27017/yelp-camp';
 
 //requiring passport 
 const passport = require('passport');
@@ -25,8 +28,11 @@ const ReviewRoute = require('./Routes/reviewRoute');
 //Error handling
 const ExpressError = require('./utils/ExpressError');
 
+const MongoStore = require("connect-mongo");
+
+
 //connecting mongodb database to server 
-mongoose.connect('mongodb://localhost:27017/yelp-camp', {
+mongoose.connect(DB_URL ,{
     useNewUrlParser : true, 
     useUnifiedTopology : true
 });
@@ -44,16 +50,23 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({extended : "true"}))
 app.use(methodOverride('_method'))
 
+const SECRET = process.env.SECRET || 'thisshouldbebettersecret';
 //using session 
 const sessionConfig = {
-    secret : 'ThisIsSecret',
+    store : new MongoStore({
+        mongoUrl : DB_URL,
+        secret : SECRET,
+        touchAfter : 24 * 60 * 60,
+    }),
+    name : 'session',
+    secret : SECRET,
     resave : false,
     saveUninitialized : true,
     cookie : {
         httpOnly : true,
         expries : Date.now() + 1000 * 60 * 60 * 24 * 7,
         maxAge : 1000 * 60 * 60 * 24 * 7
-    }
+    },
 }
 app.use(session(sessionConfig));
 //running flash 
