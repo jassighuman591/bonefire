@@ -105,6 +105,8 @@ app.use( (err, req, res, next) => {
     res.render('campgrounds/error', {message});
 })
 
-app.listen(2500, () => {
-    console.log("listening to port 2500");
+const PORT = process.env.PORT || 2500;
+
+app.listen(PORT , () => {
+    console.log(`serving on port ${PORT}`);
 })
