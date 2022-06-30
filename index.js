@@ -73,6 +73,9 @@ app.use( (req, res, next) => {
     next();
 })
 
+app.get('/', (req, res) => {
+    res.render('home');
+})
 //campgrounds route & review route 
 app.use('/', UserRoute);
 app.use('/campgrounds', CampgroundRoute);
