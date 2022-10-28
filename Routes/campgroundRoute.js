@@ -4,7 +4,7 @@ const multer = require('multer');
 const { storage } = require('../cloudinary/index');
 const upload = multer({ storage }); 
 const router = express.Router();
-
+ 
 //controllers
 const campgrounds = require('../controllers/campground');
 

@@ -1,0 +1,53 @@
+*{  margin : 0;
+    padding : 0;
+    box-sizing: border-box;
+}
+
+.campgrounds-container{
+    max-width: 80rem;
+    height: auto;
+    margin : 1rem auto;
+    padding : 0 3.2rem;
+}
+
+.campgrounds-container > .card{
+    width: 550px;
+    display: inline-flex;
+    margin : 1rem;
+    background-color: white;
+    border-radius: 10px;
+}
+
+.campgrounds-container > .card > .card-image{
+    width : 250px;
+    height: 200px;
+}
+.campgrounds-container > .card > .card-image > img{
+    width : 100%;
+    height: 100%;
+}
+
+.campgrounds-container > .card > .card-body{
+    width : 300px;
+    display : flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.campgrounds-container > .card > .card-body > p{
+    text-align: center;
+}
+
+.campgrounds-container > .card > .card-body > a{
+    width: 120px;
+    height: 40px;
+    margin-top: 1.5rem;
+    text-align: center;
+    line-height: 25px;
+    text-decoration: none;
+    color : white;
+    background-color: #FF577F;
+    border-radius: 10px;
+    padding : 0.5rem;
+}
