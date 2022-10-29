@@ -15,17 +15,8 @@ ImageSchema.virtual('thumbnail').get(function () {
 
 const CampgroundSchema = new Schema({
     title : String,
-    geometry: { // for storing latitude and longitude of the location. 
-        type: {
-            type: String, 
-            enum: ['Point'],
-            required: true
-        },
-        cooridnates: {
-            type: [Number], // [latitudes, longitudes]
-            required: true
-        }
-    },
+    longitude: Number, 
+    latitude: Number,
     image: [ImageSchema],
     description : String,
     location : String,
