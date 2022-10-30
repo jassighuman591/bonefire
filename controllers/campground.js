@@ -5,7 +5,6 @@ const campground = require('../models/campground')
 const mapBoxToken = process.env.MAPBOX_TOKEN
 const geocoder = mbxGeocoding({ accessToken: mapBoxToken })
 
-
 module.exports.index = async (req, res, next) => {
     try {
         const allCamps = await Campground.find({ })
@@ -25,12 +24,12 @@ module.exports.createCampground = async (req, res, next) => {
             query: req.body.location,
             limit: 1
         }).send()
-
         const newCampground = new Campground(req.body);
+        newCampground.geometry = geoData.body.features[0].geometry;
         newCampground.image = req.files.map( f => ({ url : f.path, filename : f.filename}));
         newCampground.author = req.user._id;
-        newCampground.longitude = geoData.body.features[0].geometry.coordinates[1]
-        newCampground.latitude = geoData.body.features[0].geometry.coordinates[0]
+        // newCampground.longitude = geoData.body.features[0].geometry.coordinates[1]
+        // newCampground.latitude = geoData.body.features[0].geometry.coordinates[0]
         await newCampground.save();
         
         req.flash('success', 'New Camp Successfully created')
