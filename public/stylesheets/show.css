@@ -1,0 +1,21 @@
+.row{
+    /* border : 2px solid red; */
+    
+}
+
+.card{
+    /* border : 2px solid blue; */
+    height: 100%;
+}
+
+.map-review-container{
+    /* border : 2px solid green; */
+    padding : 0;
+    margin : 0;
+}
+
+#map{
+    /* border : 2px solid yellow; */
+    width: 100%;
+    height: 300px;
+}
